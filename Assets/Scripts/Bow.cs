@@ -26,11 +26,4 @@ public class Bow : MonoBehaviour
         transform.rotation = Quaternion.Euler(0f, 0f, currentAngle);
     }
 
-    void ShootArrow(float strength)
-    {
-        Rigidbody2D arrowInstance = Instantiate(arrowPrefab, arrowSpawnPoint.position, transform.rotation);
-        arrowInstance.velocity = transform.up * baseForce * strength;
-    }
-
-
 }
