@@ -155,8 +155,6 @@ public class LevelManager : MonoBehaviour
 
     private void HandleShotHitGuy()
     {
-        _adsManager.ShowInterstitialAd();
-
         CurrentLives--;
 
         OnLivesUpdated?.Invoke(CurrentLives);
