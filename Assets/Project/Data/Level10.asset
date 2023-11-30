@@ -17,3 +17,4 @@ MonoBehaviour:
   FruitType: 1
   IsRopeLevel: 0
   HasBrickWall: 1
+  HasRicochetWall: 1

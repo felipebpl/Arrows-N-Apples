@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.Serialization;
 
 public class BowController : MonoBehaviour
@@ -20,6 +21,7 @@ public class BowController : MonoBehaviour
 
     private Camera _mainCamera;
     private Tweener _forceTween;
+    private bool _isPullingBow;
     private bool _wasAlreadyShot;
     private Vector3[] _linePoints;
     private Vector3[] _originalLinePoints;
@@ -45,8 +47,9 @@ public class BowController : MonoBehaviour
 
         AimBow();
 
-        if (Input.GetMouseButtonDown(0)) //hold mouse button
+        if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject()) //hold mouse button
         {
+            _isPullingBow = true;
             _forceTween?.Kill();
 
             _forceTween = DOVirtual.Float(0, 1, _timeToReachMaxForce, value =>
@@ -60,8 +63,9 @@ public class BowController : MonoBehaviour
                 .SetLoops(-1, LoopType.Yoyo);
         }
 
-        if (Input.GetMouseButtonUp(0)) //release mouse button
+        if (Input.GetMouseButtonUp(0) && _isPullingBow) //release mouse button
         {
+            _isPullingBow = false;
             _forceTween?.Kill();
 
             ShootArrow();

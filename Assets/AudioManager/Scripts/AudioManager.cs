@@ -92,10 +92,12 @@ public class AudioManager : MonoBehaviour
     {
         if (_musicPlaying != "")
         {
-            if (IsSoundPlaying(_musicPlaying) && !_musicPlaying.Equals(name)) //if song is playing and it's not the same song
+            if (IsSoundPlaying(_musicPlaying) && _musicPlaying.Equals(name)) //if song is playing and it's the same song
             {
-                Stop(_musicPlaying);
-            }  
+                return;
+            }
+
+            Stop(_musicPlaying);
         }
 
         _musicPlaying = name;

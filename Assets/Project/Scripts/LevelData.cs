@@ -10,4 +10,5 @@ public class LevelData : ScriptableObject
     public FruitType FruitType;
     public bool IsRopeLevel;
     public bool HasBrickWall;
+    public bool HasRicochetWall;
 }

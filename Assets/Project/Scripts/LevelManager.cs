@@ -16,11 +16,13 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private FruitRope _fruitRopePrefab;
     [SerializeField] private GameObject _missWallPrefab;
     [SerializeField] private GameObject _brickWallPrefab;
+    [SerializeField] private GameObject _ricochetWallPrefab;
     [SerializeField] private LevelData[] _levelList;
     [SerializeField] private int _initialLives;
 
     private int _currentLevel;
     private Camera _mainCamera;
+    private AdsManager _adsManager;
 
     public int CurrentLives { get; private set; }
     public int InitialLives => _initialLives;
@@ -42,16 +44,12 @@ public class LevelManager : MonoBehaviour
         CurrentLives = InitialLives;
     }
 
-    private void Start()
-    {
-        AudioManager.Instance.PlaySong("GameSong");
-    }
-
     private void OnEnable()
     {
         SceneManager.sceneLoaded += HandleSceneLoaded;
 
         ArrowController.OnShotHitGuy += HandleShotHitGuy;
+        AdsManager.OnRewardedAdCompleted += HandleRewardedAdCompleted;
     }
 
     private void OnDisable()
@@ -59,6 +57,12 @@ public class LevelManager : MonoBehaviour
         SceneManager.sceneLoaded -= HandleSceneLoaded;
 
         ArrowController.OnShotHitGuy -= HandleShotHitGuy;
+        AdsManager.OnRewardedAdCompleted -= HandleRewardedAdCompleted;
+    }
+
+    private void Start()
+    {
+        _adsManager = FindObjectOfType<AdsManager>();
     }
 
     public void RetryLevel()
@@ -90,13 +94,25 @@ public class LevelManager : MonoBehaviour
         RetryLevel();
     }
 
-    private void HandleSceneLoaded(Scene arg0, LoadSceneMode loadSceneMode)
+    public void ReturnToMenu()
     {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
+    }
+
+    private void HandleSceneLoaded(Scene scene, LoadSceneMode loadSceneMode)
+    {
+        if (scene.buildIndex == 0)
+        {
+            return;
+        }
+
         InitializeLevel();
     }
 
     private void InitializeLevel()
     {
+        AudioManager.Instance.PlaySong("GameSong");
+
         LevelData currentLevel = _levelList[_currentLevel];
         float levelDistance = currentLevel.Distance;
         FruitType levelFruit = currentLevel.FruitType;
@@ -124,6 +140,11 @@ public class LevelManager : MonoBehaviour
             Instantiate(_brickWallPrefab);
         }
 
+        if (currentLevel.HasRicochetWall)
+        {
+            Instantiate(_ricochetWallPrefab);
+        }
+
         GameObject player = Instantiate(_playerPrefab,
             new Vector2(-distanceToTheCenter, _playerPrefab.transform.position.y),
             Quaternion.Euler(0, 180, 0));
@@ -134,8 +155,16 @@ public class LevelManager : MonoBehaviour
 
     private void HandleShotHitGuy()
     {
+        _adsManager.ShowInterstitialAd();
+
         CurrentLives--;
 
+        OnLivesUpdated?.Invoke(CurrentLives);
+    }
+
+    private void HandleRewardedAdCompleted()
+    {
+        CurrentLives = _initialLives;
         OnLivesUpdated?.Invoke(CurrentLives);
     }
 }

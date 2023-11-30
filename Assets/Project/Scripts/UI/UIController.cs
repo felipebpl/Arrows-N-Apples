@@ -14,6 +14,7 @@ public class UIController : MonoBehaviour
     [SerializeField] private Button _nextLevelButton;
     [SerializeField] private Button _continueButton;
     [SerializeField] private Button _tryAgainButton;
+    [SerializeField] private Button _refillLivesButton;
     [SerializeField] private CanvasGroup _missedShotPanel;
     [SerializeField] private CanvasGroup _gameOverPanel;
 
@@ -85,5 +86,7 @@ public class UIController : MonoBehaviour
         {
             _hearts[i].SetHeartActive(i <= (lives - 1));
         }
+
+        _refillLivesButton.gameObject.SetActive(lives <= 0);
     }
 }

@@ -1,11 +1,17 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class MainMenuButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+public class MenuButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     [SerializeField] private GameObject _arrowIcon;
+
+    private void OnEnable()
+    {
+        _arrowIcon.SetActive(false);
+    }
 
     public void OnPointerEnter(PointerEventData eventData)
     {

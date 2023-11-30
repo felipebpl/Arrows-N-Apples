@@ -16,3 +16,5 @@ MonoBehaviour:
   Distance: 16
   FruitType: 0
   IsRopeLevel: 0
+  HasBrickWall: 0
+  HasRicochetWall: 0

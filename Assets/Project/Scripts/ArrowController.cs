@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class ArrowController : MonoBehaviour
 {
+    public static event Action OnArrowReachedDestionation;
     public static event Action OnShotMissed;
     public static event Action OnShotHitApple;
     public static event Action OnShotHitGuy;
@@ -58,6 +59,8 @@ public class ArrowController : MonoBehaviour
             fruit.Explode();
 
             AudioManager.Instance.Play("AppleHit");
+
+            OnArrowReachedDestionation?.Invoke();
             OnShotHitApple?.Invoke();
             return;
         }
@@ -72,6 +75,8 @@ public class ArrowController : MonoBehaviour
             appleGuy.StickArrowToBody(transform);
             AudioManager.Instance.Play("GuyHit");
 
+            OnArrowReachedDestionation?.Invoke();
+
             DOVirtual.DelayedCall(1f, () => OnShotHitGuy?.Invoke());
             return;
         }
@@ -82,6 +87,8 @@ public class ArrowController : MonoBehaviour
             _hasHitSomething = true;
 
             StopMoving();
+
+            OnArrowReachedDestionation?.Invoke();
             OnShotMissed?.Invoke();
         }
 
@@ -90,6 +97,7 @@ public class ArrowController : MonoBehaviour
         {
             _hasHitSomething = true;
 
+            OnArrowReachedDestionation?.Invoke();
             OnShotMissed?.Invoke();
         }
     }
