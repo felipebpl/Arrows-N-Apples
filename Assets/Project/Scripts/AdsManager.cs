@@ -47,6 +47,8 @@ public class AdsManager : MonoBehaviour, IUnityAdsInitializationListener, IUnity
             Advertisement.Initialize(gameId, isTestingMode, this);//ONLY ONCE
         }
 
+        Advertisement.Load(interstitialAdUnitId, this);
+        Advertisement.Load(rewardedAdUnitId, this);
     }
 
     public void OnInitializationComplete()
@@ -93,6 +95,8 @@ public class AdsManager : MonoBehaviour, IUnityAdsInitializationListener, IUnity
         }
         print("interstitial show complete");
 
+        Advertisement.Load(interstitialAdUnitId, this);
+        Advertisement.Load(rewardedAdUnitId, this);
     }
 
     public void OnUnityAdsShowFailure(string placementId, UnityAdsShowError error, string message)

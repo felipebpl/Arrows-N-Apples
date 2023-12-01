@@ -3146,23 +3146,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6335611746087332680, guid: d984d2e73924f91449d394e75508c3db, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6335611746087332680, guid: d984d2e73924f91449d394e75508c3db, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6335611746087332680, guid: d984d2e73924f91449d394e75508c3db, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 11500000, guid: b39986f0f59fce04a92e436b1b6a8dcb, type: 3}
     - target: {fileID: 6335611746087332680, guid: d984d2e73924f91449d394e75508c3db, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: LoadAd
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 6335611746087332680, guid: d984d2e73924f91449d394e75508c3db, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: loadInterstitial, Assembly-CSharp
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 6335611746087332680, guid: d984d2e73924f91449d394e75508c3db, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 6656910476053142916, guid: d984d2e73924f91449d394e75508c3db, type: 3}
       propertyPath: m_Pivot.x
